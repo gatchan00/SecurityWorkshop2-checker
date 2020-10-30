@@ -1,10 +1,10 @@
 from flask import Flask, escape, session, request, Response, redirect, url_for, render_template, Markup
 import pymysql
+import hashlib
 
 
-
-tablaUsuarios = { 'bwcarty@att.net': 'barbarous',
-                 'psharpe@mac.com': 'story'}
+tablaUsuarios = {'58d89a3ec111def7c167980ec287b907e66b007c': '3043c70c75558cc7137f783ef76756a4df74f5a8', #bwcarty@att.net:barbarous
+                 'c152a0f856e4c59202ad825d2db78be86969b1b6': 'd01593a7b3919244b959c893a0db44f8d82f92b7'}
 
 app = Flask(__name__, template_folder='templates')
 
@@ -29,12 +29,11 @@ def validarLogin():
         user = request.form['user']
         password = request.form['pass']
 
+        print("user: <" + user + ">")
+        print("pass: <" + password + ">")
 
-        print("user: " + user)
-        print("pass: " + password)
-
-        if user in tablaUsuarios.keys():
-            if tablaUsuarios[user] == password:
+        if hashlib.sha1(user.encode('utf8')).hexdigest() in tablaUsuarios.keys():
+            if tablaUsuarios[hashlib.sha1(user.encode('utf8')).hexdigest()] == hashlib.sha1(password.encode('utf8')).hexdigest():
                 session['logged'] = user
                 return showLogin()
     return showLogin(), 403

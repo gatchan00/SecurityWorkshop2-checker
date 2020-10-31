@@ -11,7 +11,7 @@ app = Flask(__name__, template_folder='templates')
 app.secret_key = b'_5#y2L"Fadsf\t4Q8zx\n\xec]/'
 
 #Esto debería estar en base de datos, pero para ahorrarme tener que preparar la base de datos, pues tiro por aquí
-comentarios = [('ZanahoriaLetal','Qué bobada! no me interesa'), ('FanDelSalmón','¿pero qué narices?')]
+comentarios = [('ZanahoriaLetal', 'Qué bobada! no me interesa'), ('FanDelSalmón', '¿pero qué narices?')]
 
 @app.route("/blobPage")
 def blobPage():

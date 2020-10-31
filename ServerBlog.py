@@ -1,5 +1,4 @@
 from flask import Flask, escape, session, request, Response, redirect, url_for, render_template, Markup
-import pymysql
 import hashlib
 
 

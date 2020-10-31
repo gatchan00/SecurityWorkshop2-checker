@@ -4,7 +4,7 @@ import concurrent.futures
 
 
 def getCombo(inputFile, outFile):
-
+    totalProcessed = 0
     tempFile = tokenize.open(inputFile)
     fileEncoding = tempFile.encoding
     tempFile.close()
@@ -13,7 +13,10 @@ def getCombo(inputFile, outFile):
                 (user, password) = linea.replace("\r", "").replace("\n", "").split(":")
                 payload = {'user': user,
                            'pass': password}
-                yield (payload,outFile)
+                yield (payload, outFile)
+                totalProcessed += 1
+                if totalProcessed % 10000 == 0:
+                    print("Processed "+str(int(totalProcessed/1000)+"K"))
 
 
 def checkCombo(payloadAndOutFile):

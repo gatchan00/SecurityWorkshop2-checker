@@ -29,11 +29,11 @@ if __name__ == '__main__':
 
     inputFile = 'combo.txt'
     outputFile = 'outputMulti.txt'
-    MAX_CONCURRENT = 100
+    MAX_CONCURRENT = 5000
     comboGenerator = getCombo(inputFile)
     stillWorking = True
     with open(outputFile, 'w') as outFile:
-            with concurrent.futures.ThreadPoolExecutor() as executor:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=200) as executor:
                 while stillWorking:
                     futures = []
                     for url in range(MAX_CONCURRENT):
